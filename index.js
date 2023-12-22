@@ -24,13 +24,13 @@ async function run() {
     // await client.connect();
     const tasksCollection = client.db("tasksDB").collection("tasksCollection");
 
-    // app.get("/cars", async (req, res) => {
-    //   const cursor = await carsCollection.find();
+    app.get("/tasks", async (req, res) => {
+      const cursor = await tasksCollection.find();
 
-    //   const result = await cursor.toArray();
+      const result = await cursor.toArray();
 
-    //   res.send(result);
-    // });
+      res.send(result);
+    });
 
     // app.get("/cars/:category", async (req, res) => {
     //   const category = req.params.category;
@@ -70,7 +70,7 @@ async function run() {
     //   res.send(result);
     // });
 
-    app.post("/task", async (req, res) => {
+    app.post("/tasks", async (req, res) => {
       const newTask = req.body;
 
       const result = await tasksCollection.insertOne(newTask);
@@ -109,17 +109,17 @@ async function run() {
     //   res.send(result);
     // });
 
-    // app.delete("/mycart/:id", async (req, res) => {
-    //   const id = req.params.id;
+    app.delete("/tasks/:id", async (req, res) => {
+      const id = req.params.id;
 
-    //   console.log(id);
+      console.log(id);
 
-    //   const query = { _id: new ObjectId(id) };
+      const query = { _id: new ObjectId(id) };
 
-    //   const result = await cartCollection.deleteOne(query);
+      const result = await tasksCollection.deleteOne(query);
 
-    //   res.send(result);
-    // });
+      res.send(result);
+    });
 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
