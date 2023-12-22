@@ -22,7 +22,7 @@ async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     // await client.connect();
-    const tasksCollection = client.db("carsDB").collection("tasksCollection");
+    const tasksCollection = client.db("tasksDB").collection("tasksCollection");
 
     // app.get("/cars", async (req, res) => {
     //   const cursor = await carsCollection.find();
@@ -72,7 +72,8 @@ async function run() {
 
     app.post("/task", async (req, res) => {
       const newTask = req.body;
-      const result = await taskCollection.insertOne(newTask);
+
+      const result = await tasksCollection.insertOne(newTask);
       res.send(result);
     });
 
@@ -133,7 +134,7 @@ async function run() {
 run().catch(console.dir);
 
 app.get("/", (req, res) => {
-  res.send("our cars is running");
+  res.send("our task management is running");
 });
 
 app.listen(port, () => {
